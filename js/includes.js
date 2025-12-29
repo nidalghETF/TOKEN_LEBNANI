@@ -9,9 +9,20 @@ function getBasePath() {
     return "";
 }
 
-// Define basePath globally
-const basePath = getBasePath();
-console.log("Detected Base Path:", basePath);
+function getBasePath() {
+    // 1. Check if we are on Localhost (your PC)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return ''; // No folder name needed on PC
+    }
+    
+    // 2. If on GitHub Pages, grab the repo name automatically
+    const pathSegments = window.location.pathname.split('/').filter(p => p.length > 0);
+    if (pathSegments.length > 0) {
+        return '/' + pathSegments[0]; // Returns "/Token-Lebnani" (or whatever the real name is)
+    }
+
+    return '';
+}
 
 // 2. COMPONENT LOADER (Updated to use basePath)
 function loadComponent(elementId, filePath, callback = null) {
