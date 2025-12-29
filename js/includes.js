@@ -1,3 +1,21 @@
+// 1. DYNAMIC BASE PATH DETECTION
+// This fixes the "basePath is not defined" error and works for both
+// Localhost (root /) and GitHub Pages (/TOKEN_LEBNANI/)
+function getBasePath() {
+    const path = window.location.pathname;
+    // If we are in a repo (like /TOKEN_LEBNANI/), this gets that part.
+    // If we are at root, it returns empty string.
+    const pathParts = path.split('/');
+    // Check if the first part is a repo name (usually length > 0 and not 'pages')
+    if (pathParts.length > 1 && pathParts[1] !== "" && pathParts[1] !== "pages") {
+        return "/" + pathParts[1];
+    }
+    return "";
+}
+
+// Define basePath globally so all functions can use it
+const basePath = getBasePath();
+console.log("Detected Base Path:", basePath); // For debugging
 document.addEventListener('DOMContentLoaded', () => {
     // Insert mobile menu button
     const headerContainer = document.getElementById('header');
