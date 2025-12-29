@@ -109,3 +109,32 @@ nav a:hover, nav a.active { color: var(--gold); }
     /* Spacing for content below header */
     main { margin-top: 100px; }
 }
+/* --- MOBILE MENU COLOR & SPACING FIX --- */
+@media (max-width: 768px) {
+    
+    .mobile-nav {
+        /* 1. FIX POSITION: Push the menu down so the header doesn't cover the first link */
+        padding-top: 40px !important; 
+        top: 60px !important; /* Ensure it starts below the header */
+        
+        background-color: var(--navy) !important;
+        border-top: 2px solid var(--gold);
+    }
+
+    .mobile-nav a {
+        /* 2. FIX COLOR: Remove "Blue" and make it Light Gray */
+        color: var(--light-gray) !important;
+        
+        /* Make links big and easy to tap */
+        font-size: 1.3rem !important;
+        padding: 20px !important;
+        text-align: center;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2); /* Faint gold divider */
+    }
+
+    /* 3. FIX CLICK COLOR: Remove "Burgundy" and make it Gold on touch */
+    .mobile-nav a:active, .mobile-nav a:hover {
+        color: var(--gold) !important;
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
