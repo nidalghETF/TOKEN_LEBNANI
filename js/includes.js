@@ -1,65 +1,68 @@
-/* js/includes.js - The "Try Everything" Loader */
+/* js/includes.js - Adapted for your specific file structure */
 
-async function fetchFile(filename) {
-    // List of places to look for the file
+async function loadComponent(elementId, filename) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    // Based on your file layout, the includes are inside the 'js' folder.
+    // We need to check paths relative to where the USER is currently standing.
+
     const pathsToTry = [
-        `includes/${filename}`,           // 1. Try relative to current folder
-        `../includes/${filename}`,        // 2. Try one folder up (for pages inside folders)
-        `/Token-Lebnani/includes/${filename}`, // 3. Try GitHub repo path
-        `Token-Lebnani/includes/${filename}`   // 4. Try GitHub repo path (relative)
+        // 1. If we are in the 'pages' folder (e.g., home.html)
+        `../js/includes/${filename}`,
+        
+        // 2. If we are at the Root (e.g., index.html)
+        `js/includes/${filename}`,
+        
+        // 3. Fallback: Standard root folder (just in case)
+        `includes/${filename}`,
+        `../includes/${filename}`
     ];
 
     for (let path of pathsToTry) {
         try {
             const response = await fetch(path);
             if (response.ok) {
-                console.log(`Found ${filename} at: ${path}`);
-                return await response.text();
+                const html = await response.text();
+                element.innerHTML = html;
+                
+                // If this is the navigation menu, activate the highlight logic
+                if (elementId === 'navigation') setupNavigation();
+                
+                // Stop looking once we found it
+                return;
             }
         } catch (e) {
-            // Keep trying next path
+            // Keep trying the next path
         }
     }
-    console.error(`Gave up. Could not find ${filename} in any known location.`);
-    return null; // Failed
-}
-
-async function loadComponent(elementId, filename) {
-    const element = document.getElementById(elementId);
-    if (!element) return;
-
-    const html = await fetchFile(filename);
-    if (html) {
-        element.innerHTML = html;
-        
-        // If this is the navigation, run the setup logic
-        if (elementId === 'navigation') setupNavigation();
-    }
+    
+    console.error(`ERROR: Could not find ${filename}. I looked in: js/includes/, ../js/includes/, and root includes.`);
 }
 
 function setupNavigation() {
-    const navLinks = document.querySelectorAll('nav a, .mobile-nav a');
+    const navLinks = document.querySelectorAll('nav a');
     const currentPath = window.location.pathname;
 
     navLinks.forEach(link => {
-        // Highlight active link
-        if (currentPath.includes(link.getAttribute('href'))) {
+        const href = link.getAttribute('href');
+        // Highlight if the link matches the current page
+        if (href && currentPath.includes(href)) {
             link.classList.add('active');
         }
     });
 
-    // Mobile Menu Button Logic
+    // Mobile Menu Logic
     const menuBtn = document.querySelector('.mobile-menu-button');
     const mobileNav = document.querySelector('.mobile-nav');
     
     if (menuBtn && mobileNav) {
-        // Remove old listeners to avoid duplicates
         const newBtn = menuBtn.cloneNode(true);
         menuBtn.parentNode.replaceChild(newBtn, menuBtn);
         
         newBtn.addEventListener('click', () => {
             mobileNav.classList.toggle('active');
-            newBtn.textContent = mobileNav.classList.contains('active') ? '✕' : '☰';
+            newBtn.innerHTML = mobileNav.classList.contains('active') ? '✕' : '☰';
         });
     }
 }
