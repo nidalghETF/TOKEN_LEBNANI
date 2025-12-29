@@ -288,22 +288,13 @@ nav a:hover, nav a.active {
         font-size: 1.5rem;
     }
     
-    #passwordInput {
-    background-color: var(--navy);
-    border: 2px solid var(--gold);
-    color: var(--light-gray);
-    
-    /* NEW SIZE SETTINGS */
-    width: 100%;             /* Take full available width of container */
-    max-width: 600px;        /* Cap it at a nice wide size */
-    height: 70px;            /* Make it tall */
-    padding: 0 30px;         /* Comfortable text padding */
-    font-size: 2rem;         /* Large, readable text (approx 32px) */
-    
-    border-radius: 8px;
-    font-family: inherit;
-    text-align: center;
-    margin-top: 20px;
+   #passwordInput {
+        width: 80% !important;   /* Reduce width on mobile */
+        max-width: 300px !important; /* Cap the size so it doesn't crush the logo */
+        height: 50px !important; /* Slightly shorter height for mobile */
+        font-size: 1.2rem !important; /* Smaller text for mobile */
+        margin-top: 10px;
+    }
 }
     
     .logo-container {
