@@ -393,3 +393,18 @@ nav a:nth-child(7) { animation: fadeInNav 0.3s ease-out 0.7s forwards; }
     color: var(--gold);
     font-weight: bold;
 }
+/* --- MOBILE FIXES --- */
+@media (max-width: 768px) {
+    /* 1. Force space below the navigation so text isn't hidden */
+    main, .content-area, body > div:not(#header):not(#navigation) {
+        margin-top: 160px !important; 
+        padding-top: 20px !important;
+    }
+
+    /* 2. Stop the header from being 'sticky' on mobile if it causes issues */
+    header, #header, nav, #navigation {
+        position: relative !important;
+        top: auto !important;
+        height: auto !important;
+    }
+}
