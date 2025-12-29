@@ -72,12 +72,26 @@ body {
 .enter-button img { width: 120px; height: auto; }
 
 /* --- HEADER & NAVIGATION --- */
+/* HEADER: Thinner bar, less wasted space */
 #header {
-    background-color: var(--navy); padding: 15px 0; text-align: center;
-    position: sticky; top: 0; z-index: 1000;
+    background-color: var(--navy);
+    padding: 5px 0; /* Reduced from 15px to 5px (Tight fit) */
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     border-bottom: 2px solid var(--gold);
+    /* No min-height needed, let the logo define it */
 }
-#header img { height: 50px; }
+
+/* LOGO: 60% Bigger */
+#header img {
+    height: 80px; /* Increased from 50px */
+    width: auto;  /* Maintain aspect ratio */
+    max-width: 300px; /* Allow it to get wider */
+    display: block; /* Removes tiny invisible gap below image */
+    margin: 0 auto; /* Keeps it centered */
+}
 
 #navigation {
     background-color: var(--navy); padding: 10px 0;
@@ -143,34 +157,18 @@ nav a:hover, nav a.active { color: var(--gold); }
         background-color: rgba(255, 255, 255, 0.05);
     }
 }
-/* --- TEXT ALIGNMENT FIX (Professional) --- */
-
-/* 1. Center the Main Container Box */
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    width: 100%;
-}
-
-/* 2. The Box Itself */
-.content-container {
-    text-align: left;   /* FIX: Text reads left-to-right (No Christmas Tree) */
-    max-width: 1000px;
-    width: 90%;
-    margin: 20px auto;
-    padding: 40px;
-    line-height: 1.8;
-}
-
-/* 3. Keep Titles Centered (Optional but looks nice) */
-.content-container h1, 
-.content-container h2 {
+/* FIX HEADINGS ALIGNMENT */
+/* Keep the Main Title (H1) centered */
+.content-container h1 {
     text-align: center;
+    margin-bottom: 30px;
 }
 
-/* 4. Ensure lists look normal */
-.content-container ul {
-    text-align: left;
-    margin-left: 20px;
+/* Force Sub-headings (H2, H3) to line up with the text (Left) */
+.content-container h2, 
+.content-container h3 {
+    text-align: left; 
+    color: var(--gold);
+    margin-top: 30px;
+    margin-bottom: 15px;
 }
