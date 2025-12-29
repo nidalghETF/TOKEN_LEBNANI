@@ -52,15 +52,17 @@ function loadComponent(elementId, filePath, callback = null) {
 
 // 3. INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
-    // Load header (Note: We removed "/TOKEN_LEBNANI" from here)
-    loadComponent('header', '/includes/header.html');
+    // Note: We removed the slash at the start of the path strings
+    // 'includes/header.html' instead of '/includes/header.html'
     
-    // Load navigation
-    loadComponent('navigation', '/includes/navigation.html', () => {
-        setupNavigation();
-        setupMobileNavigation();
+    loadComponent('header', 'includes/header.html');
+    loadComponent('navigation', 'includes/navigation.html', () => {
+        if (typeof setupNavigation === 'function') {
+            setupNavigation();
+        }
     });
-    
+    loadComponent('footer', 'includes/footer.html');
+});
     // Load footer
     loadComponent('footer', '/includes/footer.html');
 });
