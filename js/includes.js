@@ -2,8 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Calculate base path for GitHub Pages project sites
     function getBasePath() {
         const path = window.location.pathname;
-        const repoName = path.split('/')[1] || '';
-        return repoName ? `/${repoName}` : '';
+        const pathParts = path.split('/').filter(part => part.length);
+        
+        // If the site is in a subdirectory (like TOKEN_LEBNANI), return that path
+        if (pathParts.length > 0) {
+            return `/${pathParts[0]}`;
+        }
+        return '';
     }
 
     const basePath = getBasePath();
@@ -128,5 +133,5 @@ function setupMobileNavigation() {
 // Make logout function available globally
 window.logout = function() {
     localStorage.removeItem("siteAccess");
-    window.location.href = "/";
+    window.location.href = basePath + "/index.html";
 };
