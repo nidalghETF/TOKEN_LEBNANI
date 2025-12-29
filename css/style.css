@@ -191,6 +191,7 @@ a:hover {
     top: 0;
     z-index: 1000;
     border-bottom: 2px solid var(--gold);
+    min-height: 60px;
 }
 
 #header img {
@@ -202,7 +203,7 @@ a:hover {
     background-color: var(--navy);
     padding: 10px 0;
     position: sticky;
-    top: 72px;
+    top: 60px; /* Matches header height */
     z-index: 999;
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
@@ -245,7 +246,7 @@ nav a:hover, nav a.active {
 .mobile-nav {
     display: none;
     position: fixed;
-    top: 72px;
+    top: 60px; /* Matches header height */
     left: 0;
     width: 100%;
     background-color: var(--navy);
@@ -299,6 +300,7 @@ nav a:hover, nav a.active {
     
     main {
         padding: 20px 15px;
+        margin-top: 120px; /* Add space below navigation */
     }
     
     .content-container {
@@ -319,6 +321,24 @@ nav a:hover, nav a.active {
     
     .logo-container {
         max-width: 400px;
+    }
+    
+    /* Fix for the mobile blue strip issue */
+    #header {
+        min-height: 50px;
+    }
+    
+    #navigation {
+        top: 50px;
+    }
+    
+    main {
+        padding-top: 100px;
+    }
+    
+    .mobile-menu-button {
+        top: 15px;
+        right: 15px;
     }
 }
 
