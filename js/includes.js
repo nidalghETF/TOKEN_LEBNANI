@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Get base path for GitHub Pages project sites
+    const basePath = window.location.pathname.split('/').slice(0, -1).join('/') || '/';
+    
     // Insert mobile menu button
     const headerContainer = document.getElementById('header');
     if (headerContainer) {
@@ -16,17 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Load header - CORRECTED PATH (added leading slash)
-    loadComponent('header', '/includes/header.html');
+    // Load header - DYNAMIC PATH
+    loadComponent('header', basePath + '/includes/header.html');
     
-    // Load navigation - CORRECTED PATH (added leading slash)
-    loadComponent('navigation', '/includes/navigation.html', () => {
+    // Load navigation - DYNAMIC PATH
+    loadComponent('navigation', basePath + '/includes/navigation.html', () => {
         setupNavigation();
         setupMobileNavigation();
     });
     
-    // Load footer - CORRECTED PATH (added leading slash)
-    loadComponent('footer', '/includes/footer.html');
+    // Load footer - DYNAMIC PATH
+    loadComponent('footer', basePath + '/includes/footer.html');
 });
 
 function loadComponent(elementId, filePath, callback = null) {
