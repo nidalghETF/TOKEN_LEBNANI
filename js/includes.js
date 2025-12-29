@@ -16,17 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Load header
-    loadComponent('header', 'includes/header.html');
+    // Load header - CORRECTED PATH (added leading slash)
+    loadComponent('header', '/includes/header.html');
     
-    // Load navigation
-    loadComponent('navigation', 'includes/navigation.html', () => {
+    // Load navigation - CORRECTED PATH (added leading slash)
+    loadComponent('navigation', '/includes/navigation.html', () => {
         setupNavigation();
         setupMobileNavigation();
     });
     
-    // Load footer
-    loadComponent('footer', 'includes/footer.html');
+    // Load footer - CORRECTED PATH (added leading slash)
+    loadComponent('footer', '/includes/footer.html');
 });
 
 function loadComponent(elementId, filePath, callback = null) {
