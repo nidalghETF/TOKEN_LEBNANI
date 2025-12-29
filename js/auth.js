@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Get base path for GitHub Pages
+    const getBasePath = () => {
+        const pathParts = window.location.pathname.split('/').filter(part => part.length);
+        if (pathParts.includes('pages')) {
+            const pagesIndex = pathParts.indexOf('pages');
+            pathParts.splice(pagesIndex, 1);
+        }
+        return pathParts.length > 0 ? `/${pathParts.join('/')}` : '';
+    };
+    
+    const basePath = getBasePath();
+    
     // Handle splash page button click
     const enterButton = document.getElementById('enterButton');
     if (enterButton) {
@@ -6,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const input = document.getElementById('passwordInput');
             if (input && input.value === "Token") {
                 localStorage.setItem("siteAccess", "granted");
-                window.location.href = "pages/home.html";
+                window.location.href = `${basePath}/pages/home.html`;
             }
             // Silent fail - no feedback on wrong password
         });
@@ -19,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const input = document.getElementById('passwordInput');
                     if (input && input.value === "Token") {
                         localStorage.setItem("siteAccess", "granted");
-                        window.location.href = "pages/home.html";
+                        window.location.href = `${basePath}/pages/home.html`;
                     }
                 }
             });
@@ -28,18 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Check access for all protected pages
     if (!localStorage.getItem("siteAccess")) {
-        // Check if we're not already on the splash page
-        if (!window.location.pathname.includes('index.html') && 
-            !window.location.pathname.includes('pages/')) {
-            window.location.href = "index.html";
-        } else if (window.location.pathname.includes('pages/')) {
-            window.location.href = "../index.html";
+        // Redirect to splash page if not authenticated
+        if (window.location.pathname.includes('/pages/')) {
+            window.location.href = `${basePath}/index.html`;
         }
     }
     
     // Add logout functionality
     window.logout = function() {
         localStorage.removeItem("siteAccess");
-        window.location.href = "../index.html";
+        window.location.href = `${basePath}/index.html`;
     };
 });
