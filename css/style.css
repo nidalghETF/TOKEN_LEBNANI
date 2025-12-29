@@ -174,3 +174,47 @@ nav a:hover, nav a.active { color: var(--gold); }
     margin-top: 30px;
     margin-bottom: 15px;
 }
+/* --- UNIVERSAL PAGE LAYOUT (Fixes Text Alignment & Headers) --- */
+main {
+    /* 1. Center the Invisible Box on the Screen */
+    display: block;
+    width: 90%;          /* Mobile friendly width */
+    max-width: 1000px;   /* PC friendly limit */
+    margin: 40px auto;   /* AUTO margins force the box to the center */
+    
+    /* 2. Text Formatting inside the box */
+    text-align: left;    /* FIX: Text reads left-to-right */
+    line-height: 1.8;
+}
+
+/* 3. Center ONLY the Main Titles (H1) */
+main h1 {
+    text-align: center;
+    color: var(--gold);
+    margin-bottom: 40px;
+}
+
+/* 4. Sub-headings: White and Left-Aligned */
+main h2, 
+main h3 {
+    text-align: left;
+    color: var(--light-gray); /* FIXED: White/Gray as requested */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle divider */
+    padding-bottom: 10px;
+}
+
+/* 5. Fix Lists so bullets align with text */
+main ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* --- PC ONLY: HIDE MOBILE ELEMENTS (Double Nav Fix) --- */
+@media (min-width: 769px) {
+    .mobile-menu-button, 
+    .mobile-nav {
+        display: none !important;
+    }
+}
