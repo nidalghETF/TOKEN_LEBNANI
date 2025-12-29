@@ -71,26 +71,34 @@ body {
 }
 .enter-button img { width: 120px; height: auto; }
 
-/* --- HEADER & NAVIGATION --- */
-/* HEADER: Thinner bar, less wasted space */
+/* HEADER: Zero Tolerance for Empty Space */
 #header {
     background-color: var(--navy);
-    padding: 1px 0; /* Reduced from 15px to 5px (Tight fit) */
+    
+    /* 1. Kill all padding */
+    padding: 2px 0; /* Tiny 2px buffer so the border doesn't touch the logo */
+    
+    /* 2. KILL THE INVISIBLE TEXT GAP (Crucial) */
+    line-height: 0; 
+    font-size: 0;
+    
     text-align: center;
     position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: 2px solid var(--gold);
-    /* No min-height needed, let the logo define it */
 }
 
-/* LOGO: 60% Bigger */
+/* LOGO: Big and Tight */
 #header img {
-    height: 150px; /* Increased from 50px */
-    width: auto;  /* Maintain aspect ratio */
-    max-width: 500px; /* Allow it to get wider */
-    display: block; /* Removes tiny invisible gap below image */
-    margin: 0 auto; /* Keeps it centered */
+    /* Your requested dimensions */
+    height: 150px; 
+    max-width: 450px;
+    width: auto; 
+    
+    /* 3. Force it to be a block (removes text spacing) */
+    display: block; 
+    margin: 0 auto; /* Keep it centered */
 }
 
 #navigation {
