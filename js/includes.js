@@ -1,10 +1,6 @@
 // 1. DYNAMIC BASE PATH DETECTION
-// This fixes the "basePath is not defined" error and works for both
-// Localhost (root /) and GitHub Pages (/TOKEN_LEBNANI/)
 function getBasePath() {
     const path = window.location.pathname;
-    // If we are in a repo (like /TOKEN_LEBNANI/), this gets that part.
-    // If we are at root, it returns empty string.
     const pathParts = path.split('/');
     // Check if the first part is a repo name (usually length > 0 and not 'pages')
     if (pathParts.length > 1 && pathParts[1] !== "" && pathParts[1] !== "pages") {
@@ -13,48 +9,24 @@ function getBasePath() {
     return "";
 }
 
-// Define basePath globally so all functions can use it
+// Define basePath globally
 const basePath = getBasePath();
-console.log("Detected Base Path:", basePath); // For debugging
-document.addEventListener('DOMContentLoaded', () => {
-    // Insert mobile menu button
-    const headerContainer = document.getElementById('header');
-    if (headerContainer) {
-        const mobileMenuButton = document.createElement('button');
-        mobileMenuButton.className = 'mobile-menu-button';
-        mobileMenuButton.innerHTML = '☰';
-        mobileMenuButton.setAttribute('aria-label', 'Menu');
-        headerContainer.appendChild(mobileMenuButton);
-        
-        mobileMenuButton.addEventListener('click', () => {
-            const mobileNav = document.querySelector('.mobile-nav');
-            if (mobileNav) {
-                mobileNav.classList.toggle('active');
-            }
-        });
-    }
-    
-    // Load header
-    loadComponent('header', '/TOKEN_LEBNANI/includes/header.html');
-    
-    // Load navigation
-    loadComponent('navigation', '/TOKEN_LEBNANI/includes/navigation.html', () => {
-        setupNavigation();
-        setupMobileNavigation();
-    });
-    
-    // Load footer
-    loadComponent('footer', '/TOKEN_LEBNANI/includes/footer.html');
-});
+console.log("Detected Base Path:", basePath);
 
+// 2. COMPONENT LOADER (Updated to use basePath)
 function loadComponent(elementId, filePath, callback = null) {
     const element = document.getElementById(elementId);
     if (!element) return;
     
-    fetch(filePath)
+    // START FIX: Always prepend basePath to the file path
+    // We pass paths like "/includes/header.html" and this adds the repo name automatically
+    const fullPath = basePath + filePath;
+    // END FIX
+
+    fetch(fullPath)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Failed to load ${filePath}: ${response.statusText}`);
+                throw new Error(`Failed to load ${fullPath}: ${response.statusText}`);
             }
             return response.text();
         })
@@ -63,43 +35,58 @@ function loadComponent(elementId, filePath, callback = null) {
             if (callback) callback();
         })
         .catch(error => {
-            console.error(`Error loading ${filePath}:`, error);
-            // Fallback content for navigation
-            if (elementId === 'navigation') {
-                element.innerHTML = `
-                <nav>
-                    <a href="/TOKEN_LEBNANI/pages/home.html">Home</a>
-                    <a href="/TOKEN_LEBNANI/pages/value-proposition.html">Value Proposition</a>
-                    <a href="/TOKEN_LEBNANI/pages/investors-deck.html">Investors Deck</a>
-                    <a href="/TOKEN_LEBNANI/pages/home-business-plan.html">Home Business Plan</a>
-                    <a href="/TOKEN_LEBNANI/pages/legal-framework.html">Legal Framework</a>
-                    <a href="/TOKEN_LEBNANI/pages/go-to-market.html">Go to Market</a>
-                    <a href="/TOKEN_LEBNANI/pages/yaz-consult-pitch.html">Yaz Consult Pitch</a>
-                </nav>
-                `;
-                if (callback) callback();
-            }
+            console.error(`Error loading ${fullPath}:`, error);
         });
 }
 
+// 3. INITIALIZATION
+document.addEventListener('DOMContentLoaded', () => {
+    // Load header (Note: We removed "/TOKEN_LEBNANI" from here)
+    loadComponent('header', '/includes/header.html');
+    
+    // Load navigation
+    loadComponent('navigation', '/includes/navigation.html', () => {
+        setupNavigation();
+        setupMobileNavigation();
+    });
+    
+    // Load footer
+    loadComponent('footer', '/includes/footer.html');
+});
+
+// 4. NAVIGATION SETUP
 function setupNavigation() {
     const currentPath = window.location.pathname;
     const currentPage = currentPath.split('/').pop();
     
     const navLinks = document.querySelectorAll('#navigation a');
     navLinks.forEach(link => {
-        const href = link.getAttribute('href');
+        // Fix links to use basePath if they don't already
+        let href = link.getAttribute('href');
+        if (href && !href.startsWith('http') && !href.startsWith(basePath)) {
+             link.setAttribute('href', basePath + href);
+        }
+
         if (href.includes(currentPage)) {
             link.classList.add('active');
         }
     });
 }
 
+// 5. MOBILE NAVIGATION
 function setupMobileNavigation() {
-    // Clone desktop navigation for mobile
+    const headerContainer = document.getElementById('header');
     const desktopNav = document.querySelector('#navigation nav');
-    if (!desktopNav) return;
     
+    if (!desktopNav || !headerContainer) return;
+    
+    // Create Button
+    const mobileMenuButton = document.createElement('button');
+    mobileMenuButton.className = 'mobile-menu-button';
+    mobileMenuButton.innerHTML = '☰';
+    headerContainer.appendChild(mobileMenuButton); // Add button to Header
+    
+    // Create Menu Container
     const mobileNav = document.createElement('div');
     mobileNav.className = 'mobile-nav';
     
@@ -113,18 +100,26 @@ function setupMobileNavigation() {
         mobileNav.appendChild(mobileLink);
     });
     
-    // Insert mobile navigation after desktop navigation
-    const navContainer = document.getElementById('navigation');
-    navContainer.appendChild(mobileNav);
+    // Add Menu to Header
+    headerContainer.appendChild(mobileNav);
+
+    // Toggle Click
+    mobileMenuButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileNav.classList.toggle('active');
+    });
+    
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+        if (!mobileNav.contains(e.target) && e.target !== mobileMenuButton) {
+            mobileNav.classList.remove('active');
+        }
+    });
 }
 
-// 2. FIXED LOGOUT FUNCTION
+// 6. LOGOUT FUNCTION
 window.logout = function() {
     console.log("Logging out...");
-    // Remove the auth token
     localStorage.removeItem("siteAccess");
-    
-    // Redirect to the Splash Page using the dynamic basePath
-    // This fixes the 404 error
     window.location.href = basePath + "/index.html";
 };
