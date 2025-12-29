@@ -1,59 +1,72 @@
-/* SIMPLE VERSION - No Dynamic Path Complexity */
+/* js/includes.js - The "Try Everything" Loader */
 
-// 1. Basic Load Function
-async function loadComponent(elementId, filePath, callback) {
+async function fetchFile(filename) {
+    // List of places to look for the file
+    const pathsToTry = [
+        `includes/${filename}`,           // 1. Try relative to current folder
+        `../includes/${filename}`,        // 2. Try one folder up (for pages inside folders)
+        `/Token-Lebnani/includes/${filename}`, // 3. Try GitHub repo path
+        `Token-Lebnani/includes/${filename}`   // 4. Try GitHub repo path (relative)
+    ];
+
+    for (let path of pathsToTry) {
+        try {
+            const response = await fetch(path);
+            if (response.ok) {
+                console.log(`Found ${filename} at: ${path}`);
+                return await response.text();
+            }
+        } catch (e) {
+            // Keep trying next path
+        }
+    }
+    console.error(`Gave up. Could not find ${filename} in any known location.`);
+    return null; // Failed
+}
+
+async function loadComponent(elementId, filename) {
     const element = document.getElementById(elementId);
     if (!element) return;
 
-    try {
-        // Try to fetch the file directly
-        const response = await fetch(filePath);
-        
-        if (!response.ok) {
-            // If it fails, log it but don't crash everything
-            console.warn(`Could not load ${filePath}`);
-            return;
-        }
-        
-        const html = await response.text();
+    const html = await fetchFile(filename);
+    if (html) {
         element.innerHTML = html;
         
-        if (callback) callback();
-
-    } catch (error) {
-        console.error(error);
+        // If this is the navigation, run the setup logic
+        if (elementId === 'navigation') setupNavigation();
     }
 }
 
-// 2. Navigation Logic
 function setupNavigation() {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('nav a');
-    
+    const navLinks = document.querySelectorAll('nav a, .mobile-nav a');
+    const currentPath = window.location.pathname;
+
     navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && href.includes(currentPage)) {
+        // Highlight active link
+        if (currentPath.includes(link.getAttribute('href'))) {
             link.classList.add('active');
         }
     });
 
-    // Mobile Menu Toggle
+    // Mobile Menu Button Logic
     const menuBtn = document.querySelector('.mobile-menu-button');
-    const nav = document.querySelector('.mobile-nav');
-    if (menuBtn && nav) {
-        menuBtn.addEventListener('click', () => {
-            nav.classList.toggle('active');
-            menuBtn.innerHTML = nav.classList.contains('active') ? '✕' : '☰';
+    const mobileNav = document.querySelector('.mobile-nav');
+    
+    if (menuBtn && mobileNav) {
+        // Remove old listeners to avoid duplicates
+        const newBtn = menuBtn.cloneNode(true);
+        menuBtn.parentNode.replaceChild(newBtn, menuBtn);
+        
+        newBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            newBtn.textContent = mobileNav.classList.contains('active') ? '✕' : '☰';
         });
     }
 }
 
-// 3. INITIALIZATION
+// INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
-    // If we are on GitHub and in a subfolder, we might need to adjust this.
-    // But for now, let's try the direct relative path which works on Localhost.
-    
-    loadComponent('header', 'includes/header.html');
-    loadComponent('footer', 'includes/footer.html');
-    loadComponent('navigation', 'includes/navigation.html', setupNavigation);
+    loadComponent('header', 'header.html');
+    loadComponent('footer', 'footer.html');
+    loadComponent('navigation', 'navigation.html');
 });
