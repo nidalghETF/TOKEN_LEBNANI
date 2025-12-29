@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Lebnani | Legal Framework</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/includes.js" defer></script>
+</head>
+<body class="protected-page">
+    <div id="header"></div>
+    <div id="navigation"></div>
+    <main>
+        <div class="content-container">
+            <h1>LEGAL & TECHNICAL FRAMEWORK</h1>
+            <h2>Compliance Architecture for Cross-Border Real Estate Tokenization</h2>
+            
+            <div class="document-section">
+                <h2>1. DUAL JURISDICTION STRUCTURE</h2>
+                <p>Our legal framework is built on a "Ring-Fenced" dual-jurisdiction model. This structure separates the operational risk of the technology platform from the asset-specific risks of the real estate. This ensures maximum protection for investors and strict compliance with both ADGM (English Common Law) and Lebanese Civil Law.</p>
+            </div>
+            
+            <div class="document-section">
+                <h2>2. THE REGULATORY PATHWAY</h2>
+                <h3>Our Strategy: From RegLab Sandbox to Full Authorization.</h3>
+                <p>The legal structure of Token Lebnani is architected specifically to satisfy the FSRA (Financial Services Regulatory Authority) regarding "Arranging Deals in Investments" while strategically avoiding the heavy capital burdens of "Custody" or "Operating an Exchange."</p>
+                
+                <h3>Phase 1: The Sandbox Entry (Year 1)</h3>
+                <ul>
+                    <li><span class="highlight">Status:</span> Application to the FSRA RegLab Sandbox.</li>
+                    <li><span class="highlight">Permission Sought:</span> "Arranging Deals in Investments" (Category 4 scope).</li>
+                    <li><span class="highlight">Capital Structure:</span> We satisfy the capital adequacy requirements for a "Restricted" license category (Base Capital ~$10,000 - $50,000 USD) by demonstrating adequate resources for the testing period, rather than the $4M+ requirement for Custody licenses.</li>
+                    <li><span class="highlight">Liquidity Strategy (No Lock-Up):</span> We avoid the "Operating an Investment Exchange" (OIE) classification by outsourcing secondary trading. We execute Listing Agreements with existing ADGM-licensed Multilateral Trading Facilities (MTFs). This provides investors with immediate liquidity from Day 1 without Token Lebnani incurring the $140,000+ capital requirement for an Exchange license.</li>
+                </ul>
+                
+                <h3>Phase 2: The Rollout (Year 2)</h3>
+                <ul>
+                    <li><span class="highlight">Status:</span> Transition from Sandbox to Full Authorization.</li>
+                    <li><span class="highlight">Expansion:</span> Activation of secondary trading across multiple ADGM-licensed MTFs.</li>
+                    <li><span class="highlight">Governance:</span> Implementation of a full internal compliance framework, transitioning from outsourced advisory to a hybrid internal/oversight model.</li>
+                </ul>
+                
+                <h3>Phase 3: Full Operations (Year 3+)</h3>
+                <ul>
+                    <li><span class="highlight">Status:</span> Full Category 4 (Arranging) License.</li>
+                    <li><span class="highlight">Expansion:</span> Horizontal expansion into Egypt (Mega Market) and Vertical expansion into SME Equity.</li>
+                    <li><span class="highlight">Scalability:</span> The "Partner Liquidity" model allows us to scale asset volume without linearly increasing our regulatory capital obligations.</li>
+                </ul>
+            </div>
+            
+            <div class="document-section">
+                <h2>3. THE TECHNICAL ARCHITECTURE (DIGISHARES & SMART CONTRACTS)</h2>
+                <h3>The Technology Layer: Digishares Institutional White-Label</h3>
+                <p>We utilize the Digishares platform to ensure institutional-grade security (ISO 27001) and regulatory compatibility.</p>
+                
+                <h4>Issuance Module</h4>
+                <p>Handles the creation of the Smart Contracts and the minting of security tokens (ERC-1400 or equivalent standard for Real World Assets).</p>
+                
+                <h4>Wallet Integration (Non-Custodial)</h4>
+                <ul>
+                    <li><span class="highlight">Protocol:</span> Integration via WalletConnect.</li>
+                    <li><span class="highlight">Implication:</span> Investors maintain custody of their private keys (MetaMask, Trust Wallet, Ledger). Token Lebnani never has access to investor funds or keys, satisfying ADGM "Non-Custodial" requirements and eliminating counterparty risk.</li>
+                </ul>
+                
+                <h4>STO Management</h4>
+                <p>Automates the Whitelisting of investors based on KYC/AML status. Only wallets whitelisted by Waystone/Compliance can hold tokens.</p>
+                
+                <h4>Secondary Market Liquidity</h4>
+                <ul>
+                    <li><span class="highlight">Technical Reality:</span> Digishares is an Issuance Platform, not an Exchange. It has no internal order book.</li>
+                    <li><span class="highlight">Execution:</span> We utilize Digishares' API Integration Module. This module pushes token data to the Partner MTF's order books. Investors trade on the MTF; the Digishares ledger updates automatically to reflect the new owner.</li>
+                </ul>
+                
+                <h3>The Smart Contract Layer: Programmed Equity</h3>
+                <p>The token is a programmable security on a public blockchain.</p>
+                
+                <h4>Transferability</h4>
+                <p>The contract supports standard transfer functions. Investors can move tokens freely between whitelisted wallets or to the Partner MTF for trading.</p>
+                
+                <h4>Dividend Distribution (The "Pull" Mechanism)</h4>
+                <ul>
+                    <li><span class="highlight">Technical Reality:</span> Due to security protocols (and WalletConnect limitations), tokens cannot passively receive "pushed" dividends like a bank account.</li>
+                    <li><span class="highlight">Mechanism:</span> The Smart Contract includes a distribute function. When the SPV distributes Net Operating Income (NOI), funds are deposited into the contract. Investors receive a notification to "Claim" their dividend. This ensures the transaction is explicitly signed by the investor's private key, preventing unauthorized transfers to lost or compromised wallets.</li>
+                </ul>
+            </div>
+            
+            <div class="document-section">
+                <h3>3.1 SECURITY & ASSET PROTECTION</h3>
+                <h4>Smart Contract Audits</h4>
+                <p>Prior to any Mainnet launch, the Smart Contract code undergoes a formal security audit by a Tier-1 blockchain security firm (e.g., CertiK, ConsenSys Diligence). The Audit Report is published publicly to satisfy MTF listing requirements and investor due diligence.</p>
+            </div>
+            
+            <div class="document-section">
+                <h3>3.2 KEY MANAGEMENT & ASSET RECOVERY (THE CONCIERGE SAFETY NET)</h3>
+                <h4>The Challenge:</h4>
+                <p>In traditional crypto, lost private keys mean lost assets. For our HNWI demographic, this risk is unacceptable.</p>
+                
+                <h4>The Solution: The "Blacklist & Replace" Protocol</h4>
+                <p>Token Lebnani utilizes a controlled recovery mechanism to assist investors in the event of lost access or theft, without compromising the integrity of the blockchain ledger.</p>
+                
+                <h4>The Operational Workflow:</h4>
+                <ol>
+                    <li><span class="highlight">Verification:</span> The investor (or their legal heir) contacts the Client Services Coordinator and provides legal proof of identity and loss of access (e.g., affidavit of loss, police report for theft, death certificate).</li>
+                    <li><span class="highlight">Blacklisting:</span> The Compliance Officer (via Multi-Sig authorization) triggers the freezeAccount function in the Smart Contract. The compromised wallet is immediately blocked from moving tokens.</li>
+                    <li><span class="highlight">Re-Minting:</span> An equivalent number of tokens is minted and sent to the investor's new, verified wallet address.</li>
+                    <li><span class="highlight">Record Integrity:</span> The original transaction history on the blockchain remains intact for audit purposes, satisfying MTF and ADGM record-keeping requirements.</li>
+                </ol>
+                
+                <h4>Security Protocol:</h4>
+                <ol>
+                    <li>The ability to Blacklist or Mint is protected by a Multi-Signature (Multi-Sig) Wallet. No single individual at Token Lebnani can unilaterally move investor funds or alter the ledger.</li>
+                    <li>This service is a fee-based concierge add-on to prevent abuse and cover administrative costs.</li>
+                </ol>
+            </div>
+            
+            <div class="document-section">
+                <h2>4. THE CORPORATE STRUCTURE (THE ASSET LAYER)</h2>
+                <p>To ensure risk isolation and legal clarity, we utilize a Multi-Layer Corporate Hierarchy designed for cross-border enforceability.</p>
+                
+                <h3>Layer 1: The ADGM Holding Company</h3>
+                <ul>
+                    <li><span class="highlight">Entity:</span> Token Lebnani Ltd.</li>
+                    <li><span class="highlight">Domicile:</span> ADGM, Al Maryah Island.</li>
+                    <li><span class="highlight">Role:</span> Platform Operator & Primary Issuer.</li>
+                    <li><span class="highlight">License:</span> Holds the FSRA Authorization (Category 4 - Arranging).</li>
+                    <li><span class="highlight">Risk:</span> Holds no assets. It provides the interface and regulatory wrapper. If the platform fails, the assets remain safe.</li>
+                </ul>
+                
+                <h3>Layer 2: The Lebanese Asset SPV (The Legal Owner)</h3>
+                <ul>
+                    <li><span class="highlight">Entity:</span> "Property Alpha SPV" (LLC - SARL).</li>
+                    <li><span class="highlight">Domicile:</span> Beirut, Lebanon.</li>
+                    <li><span class="highlight">Role:</span> Legal owner of the physical title deed.</li>
+                    <li><span class="highlight">Ownership Structure:</span>
+                        <ol>
+                            <li>Legal Owner: The ADGM Holding Company is the registered shareholder in the Lebanese Commercial Register.</li>
+                            <li>Beneficial Owner: The Token Holders.</li>
+                        </ol>
+                    </li>
+                </ul>
+                
+                <h3>The "Look-Through" Mechanism (Crucial):</h3>
+                <p>We rely on a specialized legal structure (drafted by YazConsult) where the Articles of Association (AoA) of the Lebanese SPV explicitly recognize the ADGM Token Ledger as the definitive register of shareholders. This ensures that while the ADGM HoldCo is the "face" of the owner, the rights to profits and sale proceeds flow contractually to the Token Holders.</p>
+                
+                <h3>Layer 3: The Facilities Management Company (FMC)</h3>
+                <ul>
+                    <li><span class="highlight">Entity:</span> Independent Third-Party Contractor.</li>
+                    <li><span class="highlight">Role:</span> Operations (Rent collection, maintenance, tenant management).</li>
+                    <li><span class="highlight">Banking:</span> The SPV opens a dedicated Lebanese bank account. The FMC is mandated to deposit all rental income into this account.</li>
+                    <li><span class="highlight">Cash Flow:</span> Rent -> SPV Account -> FMC Fee Deduction -> Net Operating Income (NOI) -> Smart Contract for Distribution.</li>
+                </ul>
+            </div>
+            
+            <div class="document-section">
+                <h3>4.1 ASSET LIFECYCLE & LIQUIDATION</h3>
+                <h4>The Sale of the Underlying Asset:</h4>
+                <p>Real estate assets have a finite life cycle. If a majority of Token Holders vote to sell the property (Liquidation Event):</p>
+                <ol>
+                    <li>The SPV liquidates the asset in USD.</li>
+                    <li>The Smart Contract executes a "Burn & Distribute" function.</li>
+                    <li>All tokens are burned (removed from circulation), and the net proceeds are instantly distributed to the wallet addresses holding the tokens.</li>
+                </ol>
+                
+                <h4>ESG Compliance:</h4>
+                <p>The Facilities Management Agreement includes strict ESG reporting requirements, ensuring the asset maintains high sustainability standards, which is critical for attracting institutional-grade partners in the GCC.</p>
+            </div>
+            
+            <div class="document-section">
+                <h2>5. THE LEGAL CONTRACT LAYER</h2>
+                <p>The Smart Contract defines the technical rights, but the Token Purchase Agreement (TPA) defines the legal rights.</p>
+                
+                <h3>The Dual Contract System</h3>
+                <h4>1. The Token Purchase Agreement (TPA)</h4>
+                <p>A legally binding contract governed by ADGM Law, signed/click-accepted before investment.</p>
+                <p><span class="highlight">Key Clauses:</span></p>
+                <ol>
+                    <li><span class="highlight">Sophisticated Investor Status:</span> Confirmation that the investor meets the "Professional Client" or "High Net Worth" criteria.</li>
+                    <li><span class="highlight">Enforceability:</span> Acknowledgement that the Token represents an equitable interest in the Lebanese SPV, enforceable via the "Look-Through" provision in the SPV's Articles of Association.</li>
+                    <li><span class="highlight">Waiver of Liability:</span> Explicit limitation of Token Lebnani's liability to the provision of the platform. The investor accepts the specific risks of the Lebanese asset (currency fluctuation, force majeure).</li>
+                    <li><span class="highlight">Smart Contract Integration:</span> Clause stating that the blockchain record is the mechanism for settling the obligations of this agreement.</li>
+                </ol>
+                
+                <h4>2. The Facilities Management Agreement</h4>
+                <p>A contract between the Lebanese SPV and the FMC.</p>
+                <ol>
+                    <li><span class="highlight">Fiduciary Duty:</span> Mandates the FMC to act in the best interest of the SPV (investors).</li>
+                    <li><span class="highlight">Reporting:</span> Mandatory monthly reporting of financials to Token Lebnani for transparency.</li>
+                </ol>
+            </div>
+            
+            <div class="document-section">
+                <h2>6. COMPLIANCE & GOVERNANCE (WAYSTONE & PARTNERS)</h2>
+                <h3>The MLRO Structure (Money Laundering Reporting Officer)</h3>
+                <p><span class="highlight">Regulatory Requirement:</span> Under FSRA Rulebook, the MLRO must be a Senior Manager function within Token Lebnani. This responsibility cannot be fully outsourced.</p>
+                
+                <h4>The Solution:</h4>
+                <ol>
+                    <li><span class="highlight">Internal MLRO:</span> The CEO (or a designated Director) serves as the Statutory MLRO, carrying personal legal responsibility for AML/CFT compliance.</li>
+                    <li><span class="highlight">Waystone (Service Provider):</span> Waystone acts as the MLRO Advisory and Operations Partner. They provide the systems, the sanctions screening, and the procedures. They review 100% of files and advise the Internal MLRO on approvals.</li>
+                </ol>
+                
+                <h3>AML/KYC Integration</h3>
+                <ol>
+                    <li><span class="highlight">Platform:</span> Digishares integrates with Sumsub/Trulioo (or similar Tier-1 provider).</li>
+                    <li><span class="highlight">Workflow:</span> Investor uploads docs -> Digishares sends to Waystone API -> Waystone verifies -> Waystone "Flags" wallet as Whitelisted -> Smart Contract allows purchase.</li>
+                </ol>
+            </div>
+            
+            <div class="document-section">
+                <h3>6.1 DATA GOVERNANCE & PRIVACY</h3>
+                <ul>
+                    <li><span class="highlight">Data Controller:</span> Token Lebnani (ADGM) acts as the sole Data Controller under ADGM Data Protection Regulations.</li>
+                    <li><span class="highlight">Data Processing Agreements (DPA):</span> Strict DPAs are executed with Digishares (Tech) and Waystone (Compliance) to ensure investor KYC data is processed securely and not utilized for any purpose other than AML/CFT verification.</li>
+                    <li><span class="highlight">Cross-Border Data Flow:</span> Investor PII (Passports, IDs) is stored within the ADGM jurisdiction (or recognized equivalent). Operational data is shared with the Lebanese FMC only on a "Need-to-Know" basis to execute property management duties, ensuring full compliance with cross-border privacy laws.</li>
+                </ul>
+            </div>
+            
+            <div class="document-section">
+                <h2>7. SECONDARY MARKET & MTF AGREEMENTS</h2>
+                <h3>Listing Agreement (The Admission to Trading)</h3>
+                <p>To list tokens on an ADGM-licensed MTF (e.g., ADS Securities, MEEZAN, etc.), Token Lebnani must sign a Listing Agreement.</p>
+                
+                <h4>Key Components of the Agreement:</h4>
+                <ol>
+                    <li><span class="highlight">Due Diligence:</span> The MTF will conduct rigorous due diligence on Token Lebnani (Fit & Proper) and the Underlying Asset (Lebanese SPV).</li>
+                    <li><span class="highlight">Admission Standards:</span> The MTF sets the criteria for who can buy (e.g., Professional Investors only).</li>
+                    <li><span class="highlight">Market Making:</span> Token Lebnani may need to engage a "Market Maker" to ensure there is buy/sell liquidity on Day 1.</li>
+                    <li><span class="highlight">Reporting:</span> Token Lebnani must provide ongoing disclosure (financials of the SPV) to the MTF, who then publishes it to investors.</li>
+                </ol>
+                
+                <h3>Separation of Duties:</h3>
+                <ol>
+                    <li><span class="highlight">Token Lebnani:</span> Manages the Primary Issuance and Asset Data.</li>
+                    <li><span class="highlight">MTF:</span> Manages the Order Book, Matching Engine, and Secondary Settlement.</li>
+                    <li><span class="highlight">Custody:</span> Investor (Self-Custody) or MTF-Nominated Custodian (if supported).</li>
+                </ol>
+            </div>
+            
+            <div class="document-section">
+                <h2>8. YAZCONSULT: LEGAL SCOPE OF WORK & MANDATE</h2>
+                <p>To ensure the Legal & Technical Framework is enforceable across ADGM and Lebanese jurisdictions, we mandate the following scope of work from our primary legal counsel, YazConsult.</p>
+                
+                <h3>8.1 CORPORATE STRUCTURING (LEBANON & ADGM)</h3>
+                <p><span class="highlight">Deliverables:</span></p>
+                <ol>
+                    <li><span class="highlight">SPV Formation:</span> Incorporation of the Lebanese SARL entities ("Asset SPVs") with bespoke Articles of Association (AoA).</li>
+                    <li><span class="highlight">The "Look-Through" Clause:</span> Drafting the specific AoA provision that recognizes the Token Ledger (Blockchain) as the definitive register of shareholders for the Lebanese entity.</li>
+                    <li><span class="highlight">ADGM Holding Setup:</span> Drafting the constitutional documents for Token Lebnani Ltd (ADGM), ensuring share structures align with the tokenized equity model.</li>
+                    <li><span class="highlight">Opinion of Counsel:</span> Issuance of a formal Legal Opinion confirming that a judgment in ADGM courts can be enforced against the underlying assets in Lebanon (Cross-Border Enforceability).</li>
+                </ol>
+                
+                <h3>8.2 TRANSACTIONAL CONTRACTS</h3>
+                <p><span class="highlight">Deliverables:</span></p>
+                <ol>
+                    <li><span class="highlight">Token Purchase Agreement (TPA):</span> Drafting the master agreement between Token Lebnani, the SPV, and the Investor. Must include clauses on Investor Representation, Risk Acknowledgment, and Smart Contract Integration (defining the code as execution of legal rights).</li>
+                    <li><span class="highlight">Facilities Management (FMC) Agreement:</span> Drafting the service contract between the Lebanese SPV and the Facilities Manager, ensuring Fiduciary Duties and reporting obligations are legally binding.</li>
+                    <li><span class="highlight">Listing Agreement Support:</span> Legal review and drafting of frameworks for listing tokens on ADGM-licensed MTFs, ensuring Primary vs. Secondary market distinction is clear.</li>
+                </ol>
+                
+                <h3>8.3 REGULATORY COMPLIANCE (FSRA & DATA)</h3>
+                <p><span class="highlight">Deliverables:</span></p>
+                <ol>
+                    <li><span class="highlight">FSRA Application Support:</span> Drafting the regulatory modules for the ADGM Sandbox application, specifically addressing "Arranging Deals in Investments" and "Regulatory Perimeter."</li>
+                    <li><span class="highlight">Data Governance Framework:</span> Drafting the Data Processing Agreements (DPA) required to transfer data between Token Lebnani (ADGM), Digishares (Tech), and Waystone (Compliance) in compliance with ADGM Data Protection Regulations.</li>
+                </ol>
+                
+                <h3>8.4 TECHNOLOGY & BLOCKCHAIN LEGAL REVIEW</h3>
+                <p><span class="highlight">Deliverables:</span></p>
+                <ol>
+                    <li><span class="highlight">Smart Contract Legal Audit:</span> Reviewing the logic of the Digishares smart contracts to ensure the code reflects the intent of the TPA.</li>
+                    <li><span class="highlight">"Blacklist & Replace" Protocol:</span> Drafting the legal policy for the Key Recovery mechanism (Section 3.2). YazConsult must certify that the "Blacklist" function does not violate ADGM prohibitions against market manipulation or unfair treatment of investors.</li>
+                    <li><span class="highlight">Dividend Distribution Logic:</span> Legal validation of the "Claim" mechanism to ensure it complies with Lebanese foreign exchange laws and UAE AML regulations regarding cross-border transfers.</li>
+                </ol>
+                
+                <h3>8.5 ONGOING GOVERNANCE</h3>
+                <p><span class="highlight">Deliverables:</span></p>
+                <ol>
+                    <li><span class="highlight">Board Advisory:</span> Quarterly attendance to review new asset classes (e.g., entry into Egypt) and amendments to UAE or Lebanese laws that affect tokenized assets.</li>
+                    <li><span class="highlight">Escalation Counsel:</span> Immediate advice in the event of a regulatory inquiry or a legal dispute regarding asset ownership.</li>
+                </ol>
+            </div>
+        </div>
+    </main>
+    <div id="footer"></div>
+</body>
+</html>
