@@ -67,13 +67,13 @@ function loadComponent(elementId, filePath, callback = null) {
             } else if (elementId === 'navigation') {
                 element.innerHTML = `
                 <nav>
-                    <a href="home.html">Home</a>
-                    <a href="value-proposition.html">Value Proposition</a>
-                    <a href="investors-deck.html">Investors Deck</a>
-                    <a href="home-business-plan.html">Home Business Plan</a>
-                    <a href="legal-framework.html">Legal Framework</a>
-                    <a href="go-to-market.html">Go to Market</a>
-                    <a href="yaz-consult-pitch.html">Yaz Consult Pitch</a>
+                    <a href="${basePath}/pages/home.html">Home</a>
+                    <a href="${basePath}/pages/value-proposition.html">Value Proposition</a>
+                    <a href="${basePath}/pages/investors-deck.html">Investors Deck</a>
+                    <a href="${basePath}/pages/home-business-plan.html">Home Business Plan</a>
+                    <a href="${basePath}/pages/legal-framework.html">Legal Framework</a>
+                    <a href="${basePath}/pages/go-to-market.html">Go to Market</a>
+                    <a href="${basePath}/pages/yaz-consult-pitch.html">Yaz Consult Pitch</a>
                 </nav>
                 `;
                 if (callback) callback();
