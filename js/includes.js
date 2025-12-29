@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Calculate base path for GitHub Pages project sites
-    const getBasePath = () => {
-        const pathParts = window.location.pathname.split('/').filter(part => part.length);
-        if (pathParts.includes('pages')) {
-            pathParts.splice(pathParts.indexOf('pages'), 1);
-        }
-        return pathParts.length > 0 ? `/${pathParts.join('/')}` : '';
-    };
+    function getBasePath() {
+        const path = window.location.pathname;
+        const repoName = path.split('/')[1] || '';
+        return repoName ? `/${repoName}` : '';
+    }
 
     const basePath = getBasePath();
     console.log('Base path detected:', basePath);
@@ -28,17 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Load header - FIXED PATH
-    loadComponent('header', `${basePath}/includes/header.html`);
+    // Load header with correct path
+    loadComponent('header', basePath + '/includes/header.html');
     
-    // Load navigation - FIXED PATH
-    loadComponent('navigation', `${basePath}/includes/navigation.html`, () => {
+    // Load navigation with correct path
+    loadComponent('navigation', basePath + '/includes/navigation.html', () => {
         setupNavigation();
         setupMobileNavigation();
     });
     
-    // Load footer - FIXED PATH
-    loadComponent('footer', `${basePath}/includes/footer.html`);
+    // Load footer with correct path
+    loadComponent('footer', basePath + '/includes/footer.html');
 });
 
 function loadComponent(elementId, filePath, callback = null) {
@@ -127,7 +125,8 @@ function setupMobileNavigation() {
     });
 }
 
-function logout() {
+// Make logout function available globally
+window.logout = function() {
     localStorage.removeItem("siteAccess");
     window.location.href = "/";
-}
+};
