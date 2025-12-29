@@ -1,138 +1,96 @@
+/* js/includes.js - FIXED VERSION */
+
 // 1. DYNAMIC BASE PATH DETECTION
 function getBasePath() {
-    const path = window.location.pathname;
-    const pathParts = path.split('/');
-    // Check if the first part is a repo name (usually length > 0 and not 'pages')
-    if (pathParts.length > 1 && pathParts[1] !== "" && pathParts[1] !== "pages") {
-        return "/" + pathParts[1];
-    }
-    return "";
-}
-
-function getBasePath() {
-    // 1. Check if we are on Localhost (your PC)
+    // If we are on your PC (localhost or 127.0.0.1)
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return ''; // No folder name needed on PC
+        return ''; // Return empty string (Look in current folder)
     }
     
-    // 2. If on GitHub Pages, grab the repo name automatically
-    const pathSegments = window.location.pathname.split('/').filter(p => p.length > 0);
-    if (pathSegments.length > 0) {
-        return '/' + pathSegments[0]; // Returns "/Token-Lebnani" (or whatever the real name is)
+    // If we are on GitHub Pages (or any real server)
+    // We grab the project name automatically from the URL
+    const pathSegments = window.location.pathname.split('/');
+    if (pathSegments.length > 1 && pathSegments[1] !== '') {
+        return '/' + pathSegments[1];
     }
-
+    
     return '';
 }
 
-// 2. COMPONENT LOADER (Updated to use basePath)
-function loadComponent(elementId, filePath, callback = null) {
+const basePath = getBasePath();
+console.log('Detected Base Path:', basePath); // Check console to see what it picked
+
+// 2. LOAD COMPONENT FUNCTION
+async function loadComponent(elementId, filePath, callback) {
     const element = document.getElementById(elementId);
     if (!element) return;
-    
-    // START FIX: Always prepend basePath to the file path
-    // We pass paths like "/includes/header.html" and this adds the repo name automatically
-    const fullPath = basePath + filePath;
-    // END FIX
 
-    fetch(fullPath)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Failed to load ${fullPath}: ${response.statusText}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            element.innerHTML = data;
-            if (callback) callback();
-        })
-        .catch(error => {
-            console.error(`Error loading ${fullPath}:`, error);
-        });
+    try {
+        // Construct the path carefully to avoid double slashes
+        // If basePath is empty, target is "includes/header.html"
+        // If basePath is "/Repo", target is "/Repo/includes/header.html"
+        
+        const cleanPath = filePath.startsWith('/') ? filePath.substring(1) : filePath;
+        const finalPath = basePath ? `${basePath}/${cleanPath}` : cleanPath;
+
+        const response = await fetch(finalPath);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to load ${finalPath}: ${response.status} ${response.statusText}`);
+        }
+        
+        const html = await response.text();
+        element.innerHTML = html;
+        
+        // Run the callback (usually for navigation highlighting)
+        if (callback) callback();
+
+    } catch (error) {
+        console.error(error);
+        // Optional: Show error on screen so you know it failed
+        // element.innerHTML = `<div style="color:red">Error loading ${elementId}</div>`;
+    }
 }
 
-// 3. INITIALIZATION
-document.addEventListener('DOMContentLoaded', () => {
-    // Note: We removed the slash at the start of the path strings
-    // 'includes/header.html' instead of '/includes/header.html'
-    
-    loadComponent('header', 'includes/header.html');
-    loadComponent('navigation', 'includes/navigation.html', () => {
-        if (typeof setupNavigation === 'function') {
-            setupNavigation();
-        }
-    });
-    loadComponent('footer', 'includes/footer.html');
-});
-    // Load footer
-    loadComponent('footer', '/includes/footer.html');
-});
-
-// 4. NAVIGATION SETUP
+// 3. NAVIGATION HIGHLIGHT LOGIC
 function setupNavigation() {
-    const currentPath = window.location.pathname;
-    const currentPage = currentPath.split('/').pop();
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('nav a');
     
-    const navLinks = document.querySelectorAll('#navigation a');
     navLinks.forEach(link => {
-        // Fix links to use basePath if they don't already
-        let href = link.getAttribute('href');
-        if (href && !href.startsWith('http') && !href.startsWith(basePath)) {
-             link.setAttribute('href', basePath + href);
-        }
-
-        if (href.includes(currentPage)) {
+        // Handle links that might use absolute or relative paths
+        const href = link.getAttribute('href');
+        const linkPage = href.split('/').pop();
+        
+        if (linkPage === currentPage) {
             link.classList.add('active');
         }
-    });
-}
-
-// 5. MOBILE NAVIGATION
-function setupMobileNavigation() {
-    const headerContainer = document.getElementById('header');
-    const desktopNav = document.querySelector('#navigation nav');
-    
-    if (!desktopNav || !headerContainer) return;
-    
-    // Create Button
-    const mobileMenuButton = document.createElement('button');
-    mobileMenuButton.className = 'mobile-menu-button';
-    mobileMenuButton.innerHTML = '☰';
-    headerContainer.appendChild(mobileMenuButton); // Add button to Header
-    
-    // Create Menu Container
-    const mobileNav = document.createElement('div');
-    mobileNav.className = 'mobile-nav';
-    
-    // Clone links
-    const links = desktopNav.querySelectorAll('a');
-    links.forEach(link => {
-        const mobileLink = link.cloneNode(true);
-        mobileLink.addEventListener('click', () => {
-            mobileNav.classList.remove('active');
-        });
-        mobileNav.appendChild(mobileLink);
-    });
-    
-    // Add Menu to Header
-    headerContainer.appendChild(mobileNav);
-
-    // Toggle Click
-    mobileMenuButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        mobileNav.classList.toggle('active');
-    });
-    
-    // Close on click outside
-    document.addEventListener('click', (e) => {
-        if (!mobileNav.contains(e.target) && e.target !== mobileMenuButton) {
-            mobileNav.classList.remove('active');
+        
+        // FIX: Ensure links in the menu point to the correct place
+        // If the link doesn't start with http/https, prepend base path
+        if (basePath && !href.startsWith('http') && !href.startsWith(basePath)) {
+            const cleanHref = href.startsWith('/') ? href.substring(1) : href;
+            link.setAttribute('href', `${basePath}/${cleanHref}`);
         }
     });
+    
+    // Mobile Menu Toggle Logic (Re-attach listener after nav loads)
+    const menuBtn = document.querySelector('.mobile-menu-button');
+    const nav = document.querySelector('.mobile-nav');
+    if (menuBtn && nav) {
+        menuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            menuBtn.innerHTML = nav.classList.contains('active') ? '✕' : '☰';
+        });
+    }
 }
 
-// 6. LOGOUT FUNCTION
-window.logout = function() {
-    console.log("Logging out...");
-    localStorage.removeItem("siteAccess");
-    window.location.href = basePath + "/index.html";
-};
+// 4. INITIALIZATION (Run when page loads)
+document.addEventListener('DOMContentLoaded', () => {
+    // Note: We provide relative paths "includes/..."
+    loadComponent('header', 'includes/header.html');
+    loadComponent('footer', 'includes/footer.html');
+    
+    // Load Navigation, then run setupNavigation
+    loadComponent('navigation', 'includes/navigation.html', setupNavigation);
+});
