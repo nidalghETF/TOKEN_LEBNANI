@@ -1,6 +1,6 @@
 /* js/auth.js - NUCLEAR OPTION (Fail-Safe Login) */
 
-const PASSWORD = "123"; 
+const PASSWORD = "Token"; 
 
 // 1. FORCE GLOBAL FUNCTION (So HTML onclick="..." can find it)
 window.checkPassword = function() {
