@@ -1,7 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Get base path for GitHub Pages project sites
-    const basePath = window.location.pathname.split('/').slice(0, -1).join('/') || '/';
-    
+    // Calculate base path for GitHub Pages project sites
+    // This handles both root deployments and subdirectory deployments
+    const getBasePath = () => {
+        const pathParts = window.location.pathname.split('/').filter(part => part.length);
+        // Remove 'pages' from the path if present
+        if (pathParts.includes('pages')) {
+            const pagesIndex = pathParts.indexOf('pages');
+            pathParts.splice(pagesIndex, 1);
+        }
+        // For GitHub Pages project sites, the repo name is the first part
+        return pathParts.length > 0 ? `/${pathParts.join('/')}` : '';
+    };
+
+    const basePath = getBasePath();
+    console.log('Base path detected:', basePath);
+
     // Insert mobile menu button
     const headerContainer = document.getElementById('header');
     if (headerContainer) {
@@ -19,17 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Load header - DYNAMIC PATH
-    loadComponent('header', basePath + '/includes/header.html');
-    
-    // Load navigation - DYNAMIC PATH
-    loadComponent('navigation', basePath + '/includes/navigation.html', () => {
+    // Load components with correct paths
+    loadComponent('header', `${basePath}/includes/header.html`);
+    loadComponent('navigation', `${basePath}/includes/navigation.html`, () => {
         setupNavigation();
         setupMobileNavigation();
     });
-    
-    // Load footer - DYNAMIC PATH
-    loadComponent('footer', basePath + '/includes/footer.html');
+    loadComponent('footer', `${basePath}/includes/footer.html`);
 });
 
 function loadComponent(elementId, filePath, callback = null) {
@@ -49,13 +58,31 @@ function loadComponent(elementId, filePath, callback = null) {
         })
         .catch(error => {
             console.error(`Error loading ${filePath}:`, error);
-            element.innerHTML = `<p>Error loading component. Please refresh the page.</p>`;
+            // Fallback content if includes fail to load
+            if (elementId === 'header') {
+                element.innerHTML = '<header class="site-header"><div class="container"><img src="images/logo.png" alt="Token Lebnani Logo"></div></header>';
+            } else if (elementId === 'navigation') {
+                element.innerHTML = `
+                <nav>
+                    <a href="home.html">Home</a>
+                    <a href="value-proposition.html">Value Proposition</a>
+                    <a href="investors-deck.html">Investors Deck</a>
+                    <a href="home-business-plan.html">Home Business Plan</a>
+                    <a href="legal-framework.html">Legal Framework</a>
+                    <a href="go-to-market.html">Go to Market</a>
+                    <a href="yaz-consult-pitch.html">Yaz Consult Pitch</a>
+                </nav>
+                `;
+                if (callback) callback();
+            } else if (elementId === 'footer') {
+                element.innerHTML = '<footer class="site-footer"><div class="footer-divider"></div><p>Token Lebnani &copy; 2025 | ADGM Regulated Platform<br>Abu Dhabi Global Market, Al Maryah Island<br><a href="#" onclick="logout(); return false;">Logout</a></p></footer>';
+            }
         });
 }
 
 function setupNavigation() {
     const currentPath = window.location.pathname;
-    const currentPage = currentPath.split('/').pop();
+    const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
     
     const navLinks = document.querySelectorAll('#navigation a');
     navLinks.forEach(link => {
@@ -91,7 +118,7 @@ function setupMobileNavigation() {
     // Update active class on mobile links when page changes
     window.addEventListener('pageshow', () => {
         const currentPath = window.location.pathname;
-        const currentPage = currentPath.split('/').pop();
+        const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
         
         mobileNav.querySelectorAll('a').forEach(link => {
             const href = link.getAttribute('href');
@@ -99,7 +126,3 @@ function setupMobileNavigation() {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
-            }
-        });
-    });
-}
