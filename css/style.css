@@ -75,7 +75,7 @@ body {
 /* HEADER: Thinner bar, less wasted space */
 #header {
     background-color: var(--navy);
-    padding: 2px 0; /* Reduced from 15px to 5px (Tight fit) */
+    padding: 1px 0; /* Reduced from 15px to 5px (Tight fit) */
     text-align: center;
     position: sticky;
     top: 0;
@@ -86,9 +86,9 @@ body {
 
 /* LOGO: 60% Bigger */
 #header img {
-    height: 100px; /* Increased from 50px */
+    height: 150px; /* Increased from 50px */
     width: auto;  /* Maintain aspect ratio */
-    max-width: 400px; /* Allow it to get wider */
+    max-width: 500px; /* Allow it to get wider */
     display: block; /* Removes tiny invisible gap below image */
     margin: 0 auto; /* Keeps it centered */
 }
