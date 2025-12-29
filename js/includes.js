@@ -118,8 +118,13 @@ function setupMobileNavigation() {
     navContainer.appendChild(mobileNav);
 }
 
-// Add logout function
+// 2. FIXED LOGOUT FUNCTION
 window.logout = function() {
+    console.log("Logging out...");
+    // Remove the auth token
     localStorage.removeItem("siteAccess");
-    window.location.href = "/TOKEN_LEBNANI/index.html";
+    
+    // Redirect to the Splash Page using the dynamic basePath
+    // This fixes the 404 error
+    window.location.href = basePath + "/index.html";
 };
