@@ -94,6 +94,11 @@ nav a {
 
 nav a:hover, nav a.active { color: var(--gold); }
 
+/* DEFAULT: HIDE MOBILE ELEMENTS ON PC */
+.mobile-menu-button, 
+.mobile-nav {
+    display: none !important;
+}
 /* --- MOBILE FIXES --- */
 @media (max-width: 768px) {
     #passwordInput {
@@ -138,39 +143,34 @@ nav a:hover, nav a.active { color: var(--gold); }
         background-color: rgba(255, 255, 255, 0.05);
     }
 }
-/* --- TEXT ALIGNMENT FIX --- */
+/* --- TEXT ALIGNMENT FIX (Professional) --- */
 
-/* 1. Center the Main Container itself */
+/* 1. Center the Main Container Box */
 main {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the box horizontally */
+    align-items: center; 
     width: 100%;
 }
 
-/* 2. Style the Content Box */
+/* 2. The Box Itself */
 .content-container {
-    text-align: center; /* Center the text inside the box */
-    max-width: 1000px;  /* Keep it from getting too wide to read */
-    width: 90%;         /* On mobile, take up 90% of screen width */
-    margin: 0 auto;     /* Double-check centering */
-    
-    /* Make it look good */
-    padding: 40px;
-    line-height: 1.8;   /* improved readability */
-}
-
-/* 3. Ensure Lists (Bullet points) look good while centered */
-.content-container ul {
-    display: inline-block; /* Keeps bullets next to text */
-    text-align: left;      /* Bullets read better left-aligned usually */
+    text-align: left;   /* FIX: Text reads left-to-right (No Christmas Tree) */
+    max-width: 1000px;
+    width: 90%;
     margin: 20px auto;
+    padding: 40px;
+    line-height: 1.8;
 }
 
-/* 4. Mobile Specific Tweaks */
-@media (max-width: 768px) {
-    .content-container {
-        padding: 20px; /* Less padding on small screens */
-        width: 95%;
-    }
+/* 3. Keep Titles Centered (Optional but looks nice) */
+.content-container h1, 
+.content-container h2 {
+    text-align: center;
+}
+
+/* 4. Ensure lists look normal */
+.content-container ul {
+    text-align: left;
+    margin-left: 20px;
 }
