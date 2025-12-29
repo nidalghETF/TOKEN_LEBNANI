@@ -226,3 +226,27 @@ main ul {
         display: none !important;
     }
 }
+/* --- FOOTER STYLING --- */
+.site-footer {
+    text-align: center;       /* 1. Force Text to Center */
+    padding: 40px 20px;       /* 2. Increase Height (40px top/bottom) */
+    
+    background-color: var(--navy); 
+    border-top: 2px solid var(--gold); 
+    margin-top: 60px;         /* 3. Push it down from the content */
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.site-footer p {
+    color: var(--light-gray);
+    font-size: 0.9rem;
+    line-height: 1.8;         /* Better spacing between lines */
+}
+
+/* Remove the specific divider div if you want a cleaner look, 
+   since the border-top above already acts as a gold line */
+.footer-divider {
+    display: none;
+}
