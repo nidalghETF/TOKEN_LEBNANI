@@ -32,17 +32,23 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* 1. Changed to sliding logic */
     background: url('../images/background.png');
-    background-repeat: repeat-x; /* Ensures image repeats horizontally for sliding */
-    background-size: cover;      /* Covers the screen */
     
-    /* 2. Changed animation to 'slideBg', slowed down to 240s (4 minutes) */
-    animation: slideBg 240s linear infinite;
+    /* FIX: Fits the image to screen height so it repeats horizontally */
+    background-size: auto 100%; 
+    background-repeat: repeat-x;
     
-    /* 3. Disables mouse interaction so it doesn't stop or react */
+    /* Animation: Slides Right to Left over 120 seconds */
+    animation: slideBg 120s linear infinite;
+    
     pointer-events: none;
     z-index: -2;
+}
+
+/* Ensure this keyframe exists right below the block above */
+@keyframes slideBg {
+    from { background-position: 0 0; }
+    to { background-position: -100% 0; }
 }
 
 /* New Sliding Animation (Right to Left) */
@@ -283,8 +289,20 @@ nav a:hover, nav a.active {
     }
     
     #passwordInput {
-        width: 250px;
-    }
+    background-color: var(--navy);
+    border: 2px solid var(--gold);
+    color: var(--light-gray);
+    
+    /* FIX: Much larger input area */
+    padding: 20px 30px; 
+    width: 500px;
+    max-width: 90%;
+    font-size: 1.5rem; /* Larger text */
+    
+    border-radius: 8px;
+    font-family: inherit;
+    text-align: center; /* Center the typing */
+}
     
     .logo-container {
         max-width: 400px;
@@ -321,8 +339,17 @@ nav a:hover, nav a.active {
 
 /* SLIDE-IN FOR NAV ITEMS */
 nav a {
-    opacity: 0;
-    transform: translateX(-20px);
+    color: var(--light-gray);
+    padding: 12px 20px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    
+    /* FIX: Ensure they are always visible */
+    opacity: 1 !important; 
+    transform: none !important;
+    animation: none !important; 
 }
 
 nav a:nth-child(1) { animation: fadeInNav 0.3s ease-out 0.1s forwards; }
