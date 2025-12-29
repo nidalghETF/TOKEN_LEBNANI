@@ -1,4 +1,6 @@
-/* CSS RESET & GLOBAL STYLES */
+/* =========================================
+   1. CSS RESET & GLOBAL VARIABLES
+   ========================================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -17,71 +19,77 @@ body {
     position: relative;
 }
 
-/* --- SPLASH PAGE --- */
-.splash-page { overflow: hidden; }
-
-.bg-rotator {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: url('../images/background.png');
-    background-size: auto 100%; /* Fit height, repeat width */
-    background-repeat: repeat-x;
-    animation: slideBg 120s linear infinite;
-    pointer-events: none;
-    z-index: -2;
-}
-
-@keyframes slideBg {
-    from { background-position: 0 0; }
-    to { background-position: -100% 0; }
-}
-
-.overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--dark-overlay);
-    z-index: -1;
-}
-
-.splash-content {
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    min-height: 100vh; text-align: center; padding: 20px;
-}
-
-.logo-container {
-    width: 80%; max-width: 1200px; margin-bottom: 40px;
-}
-
-.logo-container img { width: 100%; height: auto; }
-
-/* PASSWORD INPUT (PC DEFAULT) */
-#passwordInput {
+/* =========================================
+   2. FOOTER (The "Sledgehammer" Fix)
+   Placed at the top to ensure it works!
+   ========================================= */
+.site-footer {
+    display: block !important;
+    text-align: center !important;
+    padding: 50px 20px !important; /* Tall and Professional */
+    width: 100% !important;
     background-color: var(--navy);
-    border: 2px solid var(--gold);
+    border-top: 2px solid var(--gold);
+    margin-top: 60px !important;
+    position: relative;
+    z-index: 100;
+}
+
+.site-footer p {
+    color: var(--light-gray) !important;
+    font-size: 1rem !important;
+    line-height: 2 !important;
+}
+
+.footer-divider { display: none; }
+
+
+/* =========================================
+   3. UNIVERSAL PAGE LAYOUT & TEXT
+   ========================================= */
+main {
+    /* Center the Box, but Align the Text Left */
+    display: block;
+    width: 90%;          /* Mobile friendly */
+    max-width: 1000px;   /* PC friendly */
+    margin: 40px auto;   /* Centers the box */
+    text-align: left;    /* Text reads like a book */
+    line-height: 1.8;
+}
+
+/* Main Titles (Centered & Gold) */
+main h1 {
+    text-align: center;
+    color: var(--gold);
+    margin-bottom: 40px;
+}
+
+/* Sub-headings (Left & White/Gray) */
+main h2, 
+main h3 {
+    text-align: left;
     color: var(--light-gray);
-    width: 100%; max-width: 600px; height: 70px; /* Big Size */
-    padding: 0 30px; font-size: 2rem;
-    border-radius: 8px; text-align: center; margin-top: 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
 }
 
-.enter-button {
-    position: fixed; bottom: 30px; right: 30px;
-    cursor: pointer; z-index: 100;
+/* Lists */
+main ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
-.enter-button img { width: 120px; height: auto; }
 
-/* HEADER: Zero Tolerance for Empty Space */
+
+/* =========================================
+   4. HEADER & LOGO (Zero Gap)
+   ========================================= */
 #header {
     background-color: var(--navy);
-    
-    /* 1. Kill all padding */
-    padding: 2px 0; /* Tiny 2px buffer so the border doesn't touch the logo */
-    
-    /* 2. KILL THE INVISIBLE TEXT GAP (Crucial) */
-    line-height: 0; 
+    padding: 2px 0; /* Tiny buffer */
+    line-height: 0; /* Kills invisible text gap */
     font-size: 0;
-    
     text-align: center;
     position: sticky;
     top: 0;
@@ -89,18 +97,18 @@ body {
     border-bottom: 2px solid var(--gold);
 }
 
-/* LOGO: Big and Tight */
 #header img {
-    /* Your requested dimensions */
     height: 150px; 
     max-width: 450px;
     width: auto; 
-    
-    /* 3. Force it to be a block (removes text spacing) */
     display: block; 
-    margin: 0 auto; /* Keep it centered */
+    margin: 0 auto; 
 }
 
+
+/* =========================================
+   5. NAVIGATION (PC Default)
+   ========================================= */
 #navigation {
     background-color: var(--navy); padding: 10px 0;
     position: sticky; top: 60px; z-index: 999;
@@ -111,142 +119,120 @@ nav { display: flex; justify-content: center; flex-wrap: wrap; }
 nav a {
     color: var(--light-gray); padding: 12px 20px;
     text-decoration: none; font-weight: 500;
-    opacity: 1 !important; /* Force Visible */
 }
 
 nav a:hover, nav a.active { color: var(--gold); }
 
-/* PC ONLY: Hide Mobile Elements (Safe Version) */
+/* PC ONLY: Hide Mobile Elements */
 @media (min-width: 769px) {
     .mobile-menu-button, 
     .mobile-nav {
         display: none !important;
     }
 }
-/* --- MOBILE FIXES --- */
+
+
+/* =========================================
+   6. SPLASH PAGE STYLES
+   ========================================= */
+.splash-page { overflow: hidden; }
+
+.bg-rotator {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: url('../images/background.png');
+    background-size: auto 100%;
+    background-repeat: repeat-x;
+    animation: slideBg 120s linear infinite;
+    pointer-events: none; z-index: -2;
+}
+
+@keyframes slideBg {
+    from { background-position: 0 0; }
+    to { background-position: -100% 0; }
+}
+
+.overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--dark-overlay); z-index: -1;
+}
+
+.splash-content {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    min-height: 100vh; text-align: center; padding: 20px;
+}
+
+.logo-container { width: 80%; max-width: 1200px; margin-bottom: 40px; }
+.logo-container img { width: 100%; height: auto; }
+
+#passwordInput {
+    background-color: var(--navy);
+    border: 2px solid var(--gold);
+    color: var(--light-gray);
+    width: 100%; max-width: 600px; height: 70px;
+    padding: 0 30px; font-size: 2rem;
+    border-radius: 8px; text-align: center; margin-top: 20px;
+}
+
+.enter-button {
+    position: fixed; bottom: 30px; right: 30px;
+    cursor: pointer; z-index: 100;
+}
+.enter-button img { width: 120px; height: auto; }
+
+
+/* =========================================
+   7. MOBILE VIEW (Phones Only)
+   ========================================= */
 @media (max-width: 768px) {
+    
+    /* Splash Screen Tweaks */
     #passwordInput {
         width: 80% !important; height: 50px !important;
         font-size: 1.2rem !important;
     }
     
-    .mobile-menu-button { display: block; position: absolute; top: 20px; right: 20px; font-size: 1.5rem; background: none; border: none; color: var(--gold); }
-    nav { display: none; }
-    .mobile-nav { display: none; flex-direction: column; background: var(--navy); position: fixed; top: 60px; width: 100%; }
-    .mobile-nav.active { display: flex; }
+    /* Navigation - Hamburger */
+    .mobile-menu-button { 
+        display: block; 
+        position: absolute; top: 20px; right: 20px; 
+        font-size: 1.5rem; 
+        background: none; border: none; 
+        color: var(--gold); 
+    }
     
-    /* Spacing for content below header */
-    main { margin-top: 100px; }
-}
-/* --- MOBILE MENU COLOR & SPACING FIX --- */
-@media (max-width: 768px) {
+    nav { display: none; } /* Hide PC Menu */
     
-    .mobile-nav {
-        /* 1. FIX POSITION: Push the menu down so the header doesn't cover the first link */
-        padding-top: 40px !important; 
-        top: 60px !important; /* Ensure it starts below the header */
+    /* Mobile Menu Drawer */
+    .mobile-nav { 
+        display: none; 
+        flex-direction: column; 
+        position: fixed; 
+        width: 100%; 
         
+        /* Fix Position & Color */
+        top: 60px !important; 
+        padding-top: 40px !important; 
         background-color: var(--navy) !important;
         border-top: 2px solid var(--gold);
     }
+    
+    .mobile-nav.active { display: flex; }
 
+    /* Mobile Links Style */
     .mobile-nav a {
-        /* 2. FIX COLOR: Remove "Blue" and make it Light Gray */
         color: var(--light-gray) !important;
-        
-        /* Make links big and easy to tap */
         font-size: 1.3rem !important;
         padding: 20px !important;
         text-align: center;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.2); /* Faint gold divider */
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     }
-
-    /* 3. FIX CLICK COLOR: Remove "Burgundy" and make it Gold on touch */
+    
     .mobile-nav a:active, .mobile-nav a:hover {
         color: var(--gold) !important;
         background-color: rgba(255, 255, 255, 0.05);
     }
-}
-/* FIX HEADINGS ALIGNMENT */
-/* Keep the Main Title (H1) centered */
-.content-container h1 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-/* Force Sub-headings (H2, H3) to line up with the text (Left) */
-.content-container h2, 
-.content-container h3 {
-    text-align: left; 
-    color: var(--light-gray); /* CHANGED FROM GOLD TO WHITE/GRAY */
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-/* --- UNIVERSAL PAGE LAYOUT (Fixes Text Alignment & Headers) --- */
-main {
-    /* 1. Center the Invisible Box on the Screen */
-    display: block;
-    width: 90%;          /* Mobile friendly width */
-    max-width: 1000px;   /* PC friendly limit */
-    margin: 40px auto;   /* AUTO margins force the box to the center */
     
-    /* 2. Text Formatting inside the box */
-    text-align: left;    /* FIX: Text reads left-to-right */
-    line-height: 1.8;
-}
-
-/* 3. Center ONLY the Main Titles (H1) */
-main h1 {
-    text-align: center;
-    color: var(--gold);
-    margin-bottom: 40px;
-}
-
-/* 4. Sub-headings: White and Left-Aligned */
-main h2, 
-main h3 {
-    text-align: left;
-    color: var(--light-gray); /* FIXED: White/Gray as requested */
-    margin-top: 30px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle divider */
-    padding-bottom: 10px;
-}
-
-/* 5. Fix Lists so bullets align with text */
-main ul {
-    margin-left: 20px;
-    margin-bottom: 20px;
-}
-
-/* --- PC ONLY: HIDE MOBILE ELEMENTS (Double Nav Fix) --- */
-@media (min-width: 769px) {
-    .mobile-menu-button, 
-    .mobile-nav {
-        display: none !important;
-    }
-}
-/* --- FOOTER STYLING --- */
-.site-footer {
-    text-align: center;       /* 1. Force Text to Center */
-    padding: 40px 20px;       /* 2. Increase Height (40px top/bottom) */
-    
-    background-color: var(--navy); 
-    border-top: 2px solid var(--gold); 
-    margin-top: 60px;         /* 3. Push it down from the content */
-    width: 100%;
-    position: relative;
-    z-index: 10;
-}
-
-.site-footer p {
-    color: var(--light-gray);
-    font-size: 0.9rem;
-    line-height: 1.8;         /* Better spacing between lines */
-}
-
-/* Remove the specific divider div if you want a cleaner look, 
-   since the border-top above already acts as a gold line */
-.footer-divider {
-    display: none;
+    /* Push content down so it doesn't hide behind header */
+    main { margin-top: 100px; }
 }
