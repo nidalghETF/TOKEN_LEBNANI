@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Contract & TPA | Token Lebnani</title>
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <style>
+        /* Specific styles for the Dual-Contract layout */
+        .intro-box {
+            background: rgba(212, 175, 55, 0.1); /* Low opacity gold */
+            border-left: 4px solid var(--gold);
+            padding: 20px;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .dual-system-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (min-width: 768px) {
+            .dual-system-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .tech-card {
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 25px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+        }
+        
+        .tech-card h3 {
+            margin-top: 0;
+            color: var(--gold);
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 10px;
+        }
+
+        .highlight { color: #fff; font-weight: bold; }
+        
+        .step-list { counter-reset: step; list-style: none; padding: 0; }
+        .step-list li { position: relative; padding-left: 50px; margin-bottom: 20px; }
+        .step-list li::before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute; left: 0; top: 0;
+            width: 35px; height: 35px;
+            background: var(--gold); color: var(--navy);
+            text-align: center; line-height: 35px;
+            font-weight: bold; border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <div id="navigation"></div>
+
+    <main>
+        <h1>Smart Contract & TPA Architecture</h1>
+        
+        <div class="intro-box">
+            <p><strong>Executive Summary:</strong> Token Lebnani employs a dual-contract system to bridge digital ownership with legal enforceability[cite: 5]. The <strong>Smart Contract</strong> handles technical execution, while the <strong>Token Purchase Agreement (TPA)</strong> provides the legal framework under ADGM law[cite: 6].</p>
+        </div>
+
+        <h2>1. The Dual-Contract Architecture</h2>
+        <p>Digital records alone are insufficient for cross-border asset enforcement[cite: 11]. Our system relies on two synchronized pillars:</p>
+
+        <div class="dual-system-grid">
+            <div class="tech-card">
+                <h3>1. Smart Contract (Technical)</h3>
+                <p><strong>Role:</strong> Programmable equity mechanism[cite: 31].</p>
+                <ul>
+                    <li>Records ownership on immutable Ethereum ledger[cite: 32].</li>
+                    <li>Automates compliance checks (Whitelisting)[cite: 33].</li>
+                    <li>Maintains the definitive shareholder register[cite: 35].</li>
+                    <li><span class="highlight">Standard:</span> ERC-1400 Security Token[cite: 37].</li>
+                </ul>
+            </div>
+
+            <div class="tech-card">
+                <h3>2. The TPA (Legal)</h3>
+                <p><strong>Role:</strong> Legal enforceability & protection[cite: 17].</p>
+                <ul>
+                    <li>Satisfies ADGM Category 4 regulations[cite: 20].</li>
+                    <li>Defines enforceable rights under English Common Law[cite: 83].</li>
+                    <li>Creates "Look-Through" mechanism to Lebanese assets[cite: 69].</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>2. Technical Specifications</h2>
+        <p>The Smart Contract operates on the Ethereum mainnet using institutional-grade infrastructure[cite: 38].</p>
+        <ul>
+            <li><strong>Non-Custodial:</strong> Token Lebnani never holds investor private keys[cite: 49].</li>
+            <li><strong>Whitelisting:</strong> Only KYC/AML-approved wallets can hold tokens[cite: 55].</li>
+            <li><strong>Blacklist & Replace:</strong> If a wallet is compromised, a multi-sig protocol freezes the old tokens and mints replacements to the verified owner, ensuring assets are never permanently lost[cite: 50, 51, 52, 53].</li>
+        </ul>
+
+        <h2>3. Legal Enforcement (The TPA)</h2>
+        <p>The TPA bridges the gap between blockchain records and real-world courts[cite: 86].</p>
+        <ul>
+            <li><strong>Arbitration:</strong> Binding Arbitration under the New York Convention (1958) ensures ADGM judgments are enforceable against Lebanese assets[cite: 84, 89].</li>
+            <li><strong>Share Pledges:</strong> The ADGM Holding Company pledges shares of the Lebanese SPV as security[cite: 87].</li>
+            <li><strong>Conflict Resolution:</strong> The TPA explicitly references the Smart Contract hash. If technology fails, the TPA provides the legal fallback[cite: 26, 28].</li>
+        </ul>
+
+        <h2>4. Integration Workflow</h2>
+        <p>The operational flow for a new investor:</p>
+        <ul class="step-list">
+            <li><strong>Pre-Investment:</strong> Investor completes KYC/AML via Waystone; wallet is whitelisted[cite: 100, 101].</li>
+            <li><strong>Execution:</strong> Investor signs the TPA and wires funds to the regulated Escrow Agent[cite: 104, 105].</li>
+            <li><strong>Token Delivery:</strong> Upon Escrow confirmation, the Smart Contract mints/transfers tokens to the investor[cite: 106].</li>
+            <li><strong>Lifecycle:</strong> Dividends are settled off-chain (via bank transfer) but recorded on-chain for transparency[cite: 111].</li>
+        </ul>
+        
+        <h2>5. Risk Mitigation</h2>
+        <p>The system is designed to handle worst-case scenarios[cite: 178].</p>
+        <ul>
+            <li><strong>Funds Safety:</strong> Funds flow via regulated Escrow and never touch Token Lebnani accounts[cite: 187].</li>
+            <li><strong>Liability:</strong> Ring-fenced SPVs contain liability within individual property entities[cite: 185].</li>
+            <li><strong>Technical Audit:</strong> Formal security review by a tier-1 blockchain security firm[cite: 180].</li>
+        </ul>
+
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/includes.js"></script>
+
+</body>
+</html>
