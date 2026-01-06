@@ -11,24 +11,20 @@
 
 ## File Structure
 - `/pages/` - Protected content (requires authentication)
-- `/includes/` - Reusable components
+- `/js/includes/` - Reusable components (Header, Footer, Nav)
 - `/js/auth.js` - Authentication logic
 - `/css/style.css` - Unified styling
 
-## Technical Notes
-- Navigation active state updates automatically
-- Background rotates continuously at 0.5 RPM
-- Mobile responsive (hamburger menu <768px)
-- All assets optimized for fast loading
-- Zero console errors on Chrome/Firefox/Safari
+## Key Features
+- [cite_start]**Smart Contract Docs**: Added `smart-contract-tpa.html` detailing the Dual-Contract architecture[cite: 1].
+- **Navigation**: Active state updates automatically via JS.
+- **Security**: Client-side password protection via localStorage.
 
-## Security Implementation
-- Client-side password protection via localStorage
-- No server dependencies - 100% GitHub Pages compatible
-- Silent failure on incorrect password attempts
-- Protected pages redirect to splash without valid token
+## Latest Updates (January 2026)
+- [cite_start]**Added Smart Contract Page**: New documentation page explaining the ERC-1400 integration with ADGM Law[cite: 37, 68].
+- **Updated Navigation**: Added "Smart Contract & TPA" to main menu.
 
 ## Optimization
 - Images compressed (<150KB each)
-- CSS/JS minified with critical comments preserved
+- Zero console errors
 - Total page load under 1.2s on 3G connection
